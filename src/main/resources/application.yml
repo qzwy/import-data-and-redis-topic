@@ -1,0 +1,37 @@
+server:
+  port: 10014
+
+spring:
+  datasource:
+#    username: root
+#    password: root
+#    url: jdbc:mysql://localhost:3306/ez_ncc?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    username: root
+    password: KXSxw8xzH3U3Ct
+    url: jdbc:mysql://10.10.49.116:13306/ncc_dev?useSSL=false&serverTimezone=GMT&characterEncoding=utf8
+
+  redis:
+    host: n1
+    port: 6379
+    timeout: 20000ms
+
+    #    集群环境打开下面注释，单机不需要打开
+    cluster:
+    #      集群信息
+      nodes: n1:6379,n2:6379,n3:6379
+    #      #默认值是5 一般当此值设置过大时，容易报：Too many Cluster redirections
+      maxRedirects: 3
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1
+      password:
+      application:
+        name: spring-boot-redis
+
+energy:
+  line2stations:
+    02: 0225,0226,0227,0228,0229,0230,0231,0232,0233,0234,0235,0236,0237,0238,0239,0240,0241,0242
+    03: 0340,0341,0342,0343,0344,0345,0346,0347,0348,0349,0350,0351,0352,0353,0354,0355,0356,0357,0358,0359,0360,0361
+    11: 1121,1122,1123,1124,1125,1126,1127,1128,1129,1130,1131,1132,1133,1134,1135,1136,1137,1138,1139,1140,1141,1142
