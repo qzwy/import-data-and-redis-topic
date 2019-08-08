@@ -27,7 +27,10 @@ public class RedisConfig {
     RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(connectionFactory);
     //订阅了一个叫chat 的通道
-    container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+    container.addMessageListener(listenerAdapter, new PatternTopic("line"));
+    container.addMessageListener(listenerAdapter, new PatternTopic("total"));
+    container.addMessageListener(listenerAdapter, new PatternTopic("analyse"));
+    container.addMessageListener(listenerAdapter, new PatternTopic("historyValue"));
     //这个container 可以添加多个 messageListener
     return container;
   }
