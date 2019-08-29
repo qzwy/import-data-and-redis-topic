@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import zwy.importdata.repository.PassengerInBoundRepo5m;
 import zwy.importdata.service.CalculateDay;
@@ -27,6 +28,24 @@ public class ProductDataTest {
   @Autowired
   private ImportOD importOD;
 
+  @Autowired
+  private StringRedisTemplate stringRedisTemplate;
+
+  @Test
+  public void testRedis() {
+    String station = "0225";
+    String total = stringRedisTemplate.opsForValue().get("tf:energy:data:" + station + ":D001");
+    String power = stringRedisTemplate.opsForValue().get("tf:energy:data:" + station + ":D401");
+    System.out.println(total+ "\n===" + power);
+  }
+
+  @Test
+  public void deleteRedis() {
+    String station = "0225";
+    String total = stringRedisTemplate.opsForValue().get("tf:energy:today:" + station + ":D001");
+    String power = stringRedisTemplate.opsForValue().get("tf:energy:current:" + station + ":D401");
+    System.out.println(total+ "\n===" + power);
+  }
 
 
 //  @Test
