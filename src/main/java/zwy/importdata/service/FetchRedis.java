@@ -19,10 +19,35 @@ public class FetchRedis {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Scheduled(fixedRate = 1000)
+//    @Scheduled(fixedRate = 1000)
     public void FetchFromRedis() {
+        //需要读取的key
         String key = "E4_Gsr";
+        //读取操作
         String value = stringRedisTemplate.opsForValue().get(key);
+        //日志打印
         log.info("Data form redis : {} = {}", key,value);
+    }
+
+//    @Scheduled(fixedRate = 1000)
+    public void FetchFromRedis2() {
+        //需要读取的key
+        String speedKey = "speed";
+        //读取操作
+        String value = stringRedisTemplate.opsForValue().get(speedKey);
+        //日志打印
+        log.info("===Data form redis : {} = {}", speedKey,value);
+
+        String distanceKey = "distance";
+        //读取操作
+        String disValue = stringRedisTemplate.opsForValue().get(distanceKey);
+        //日志打印
+        log.info("===Data form redis : {} = {}", distanceKey,disValue);
+
+        String spidersKey = "spiders";
+        //读取操作
+        String spidersValue = stringRedisTemplate.opsForValue().get(spidersKey);
+        //日志打印
+        log.info("===Data form redis : {} = {}", spidersKey,spidersValue);
     }
 }

@@ -7,6 +7,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * 向redis中保存数据
+ */
 @EnableScheduling
 @Component
 public class DataToRedis {
@@ -20,13 +23,16 @@ public class DataToRedis {
      */
     @Scheduled(fixedRate = 1000)
     public void insertIntoRedis() {
+        //key
         String GalvanicSkinResponse = "E4_Gsr";
+        //value
         double value = Math.random()+3;
         String format = String.format("%.3f", value);
+        //transform to json
         JSONObject data = new JSONObject();
         data.put("timestamp",String.valueOf(System.currentTimeMillis()));
         data.put("value",format);
+        //save
         stringRedisTemplate.opsForValue().set(GalvanicSkinResponse,data.toJSONString());
     }
-
 }

@@ -31,7 +31,7 @@ public class RedisConfig {
 //    container.addMessageListener(listenerAdapter, new PatternTopic("total"));
 //    container.addMessageListener(listenerAdapter, new PatternTopic("analyse"));
 //    container.addMessageListener(listenerAdapter, new PatternTopic("historyValue"));
-//    container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+    container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
 
     //这个container 可以添加多个 messageListener
     return container;
