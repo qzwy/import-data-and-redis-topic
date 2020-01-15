@@ -2,6 +2,11 @@ server:
   port: 10014
 
 spring:
+  data:
+    mongodb:
+      host: 10.10.49.116
+      port: 27019
+      database: tupp-mgmt-dev
 #  datasource:
 #    username: root
 #    password: root

@@ -10,19 +10,25 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestBody;
 import zwy.importdata.controller.SpidersController;
+import zwy.importdata.mongo.MongoRepo;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TestTime {
 
     @Autowired
-   SpidersController spidersController;
+    private
+    SpidersController spidersController;
     @Autowired
+    private
     StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private MongoRepo mongoRepo;
 
     @Test
     public void test() {
@@ -53,4 +59,10 @@ public class TestTime {
         Assert.assertEquals(distance,"5");
         Assert.assertEquals(spiders,"5");
     }
+
+//    @Test
+//    public void testMongo() {
+//        List<String> byType = mongoRepo.findByType("standard", "sample_components");
+//        System.out.println("byType = " + byType);
+//    }
 }
