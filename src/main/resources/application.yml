@@ -2,35 +2,35 @@ server:
   port: 10014
 
 spring:
-  data:
-    mongodb:
-      host: 10.10.49.116
-      port: 27019
-      database: tupp-mgmt-dev
+#  data:
+#    mongodb:
+#      host: 10.10.49.116
+#      port: 27019
+#      database: tupp-mgmt-dev
 #  datasource:
 #    username: root
 #    password: root
 #    url: jdbc:mysql://localhost:3306/ez_ncc?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
 
   redis:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 20000ms
+#    host: 10.10.49.152
+#    port: 6379
+#    timeout: 20000ms
 
-#    #    集群环境打开下面注释，单机不需要打开
-#    cluster:
-#    #      集群信息
-#      nodes: n1:6379,n2:6379,n3:6379
-#    #      #默认值是5 一般当此值设置过大时，容易报：Too many Cluster redirections
-#      maxRedirects: 3
-#      pool:
-#        max-active: 8
-#        min-idle: 0
-#        max-idle: 8
-#        max-wait: -1
-#      password:
-#      application:
-#        name: spring-boot-redis
+    #    集群环境打开下面注释，单机不需要打开
+    cluster:
+    #      集群信息
+      nodes: n1:6379,n2:6379,n3:6379
+    #      #默认值是5 一般当此值设置过大时，容易报：Too many Cluster redirections
+      maxRedirects: 3
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1
+      password:
+      application:
+        name: spring-boot-redis
 
 energy:
   line2stations:

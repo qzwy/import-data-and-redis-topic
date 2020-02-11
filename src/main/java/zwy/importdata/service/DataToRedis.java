@@ -21,7 +21,7 @@ public class DataToRedis {
      * <STREAM_TYPE> <TIMESTAMP> <DATA>
      * E4_Gsr 123345627891.123 3.129
      */
-    @Scheduled(fixedRate = 1000)
+//    @Scheduled(fixedRate = 1000)
     public void insertIntoRedis() {
         //key
         String GalvanicSkinResponse = "E4_Gsr";
@@ -35,4 +35,6 @@ public class DataToRedis {
         //save
         stringRedisTemplate.opsForValue().set(GalvanicSkinResponse,data.toJSONString());
     }
+
+
 }

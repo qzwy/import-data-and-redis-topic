@@ -17,7 +17,7 @@ public class MessageSender {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Scheduled(fixedRate = 500) //间隔0.5s 通过StringRedisTemplate对象向redis消息队列chat频道发布消息
+   // @Scheduled(fixedRate = 500) //间隔0.5s 通过StringRedisTemplate对象向redis消息队列chat频道发布消息
     public void sendMessage() {
         //key
         String GalvanicSkinResponse = "E4_Gsr";

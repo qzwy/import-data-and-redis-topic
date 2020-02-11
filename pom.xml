@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<tibp-core-redis.version>0.4.1</tibp-core-redis.version>
 	</properties>
 
 	<dependencies>
