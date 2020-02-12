@@ -1,4 +1,4 @@
-package zwy.importdata.serviceTest;
+package zwy.importdata.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,26 +7,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import zwy.importdata.model.StationFlow;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-public class redisTest {
+@RestController
+public class FlowController {
 
   @Autowired
   private StringRedisTemplate stringRedisTemplate;
 
-
   //各重点站进出站总量
-  @Test
-  public void fetchFlowData(){
+  @GetMapping("/station_inbound")
+  public ResponseEntity<?> fetchFlowData(){
     //today
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String timeNow = df.format(new Date());
@@ -51,17 +47,15 @@ public class redisTest {
         flow = flow + Integer.parseInt(value.toString());
       }
       stationFlow.setInboundValue(flow);
-      stationFlow.setStationId(key.substring(15,22));
+      stationFlow.setOutBoundValue(flow);
+      stationFlow.setStationId(key.substring(18,22));
       listStationFlow.add(stationFlow);
     }
-    for (StationFlow i : listStationFlow){
-      System.out.println("i = " + i.getStationId() + "----" +i.getInboundValue());
-    }
+    return ResponseEntity.ok(listStationFlow);
   }
 
-  //各线总进站量
-  @Test
-  public void fetchFlowData2(){
+  @GetMapping("/line_inbound")
+  public ResponseEntity<?> fetchFlowData2(){
 
     String key2 = "tf:cmn:29:flow:*:5m_in";
     Set<String> keys = stringRedisTemplate.keys(key2);
@@ -81,12 +75,11 @@ public class redisTest {
       }
     }
     System.out.println("lineFlow = " + lineFlow);
+    return ResponseEntity.ok(lineFlow);
   }
 
-
-  //各时段进站量
-  @Test
-  public void fetchFlowData3() {
+  @GetMapping("/time_inbound")
+  public ResponseEntity fetchFlowData3() throws Exception{
 
     String key2 = "tf:cmn:29:flow:*:5m_in";
     Set<String> keys = stringRedisTemplate.keys(key2);
@@ -108,6 +101,11 @@ public class redisTest {
       test = test+i;
     }
     System.out.println("test = " + test);
-  }
 
+    GenFiveMins genFiveMins = new GenFiveMins();
+    Map<String, String> timeMap = genFiveMins.genFiveMins();
+
+    for
+    return ResponseEntity.ok(total);
+  }
 }
