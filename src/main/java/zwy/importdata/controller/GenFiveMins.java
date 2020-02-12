@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @author Qzwy
+ * 生成时间与序列
+ */
 public class GenFiveMins {
 
   public  Map<String, String> genFiveMins() throws Exception{

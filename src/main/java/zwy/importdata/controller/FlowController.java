@@ -7,13 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import zwy.importdata.model.LineFlow;
 import zwy.importdata.model.StationFlow;
+import zwy.importdata.model.TimeFlow;
 
+/**
+ * @author Qzwy
+ */
 @RestController
 public class FlowController {
 
@@ -42,21 +49,28 @@ public class FlowController {
     for (String key : keys){
       StationFlow stationFlow = new StationFlow();
       Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(key);
+      Map<Object, Object> entries2 = stringRedisTemplate.opsForHash().entries(key);
       Integer flow  = 0;
+      Integer flow2  = 0;
       for ( Object value : entries.values()){
         flow = flow + Integer.parseInt(value.toString());
       }
+      for ( Object value : entries.values()){
+        flow2 = flow2 + Integer.parseInt(value.toString());
+      }
       stationFlow.setInboundValue(flow);
-      stationFlow.setOutBoundValue(flow);
+      stationFlow.setOutBoundValue(flow2+1);
       stationFlow.setStationId(key.substring(18,22));
+      stationFlow.setStationName(key.substring(18,22)+"站");
+      stationFlow.setColor(key.substring(15,17)+"色");
       listStationFlow.add(stationFlow);
     }
     return ResponseEntity.ok(listStationFlow);
   }
 
+  //线路累计进出站量
   @GetMapping("/line_inbound")
   public ResponseEntity<?> fetchFlowData2(){
-
     String key2 = "tf:cmn:29:flow:*:5m_in";
     Set<String> keys = stringRedisTemplate.keys(key2);
     Map<String, Integer> lineFlow = new HashMap<>();
@@ -75,12 +89,24 @@ public class FlowController {
       }
     }
     System.out.println("lineFlow = " + lineFlow);
-    return ResponseEntity.ok(lineFlow);
+    List<LineFlow> lineFlowList = new ArrayList<>();
+    for (String key:lineFlow.keySet()){
+      LineFlow flow = new LineFlow();
+      flow.setLineId(key);
+      flow.setLineName(key+"号线");
+      flow.setValue(lineFlow.get(key));
+      lineFlowList.add(flow);
+    }
+
+    JSONObject object = new JSONObject();
+    object.put("inBound",lineFlowList);
+    object.put("outBound",lineFlowList);
+    return ResponseEntity.ok(object);
   }
 
+  //时间与进出站量
   @GetMapping("/time_inbound")
   public ResponseEntity fetchFlowData3() throws Exception{
-
     String key2 = "tf:cmn:29:flow:*:5m_in";
     Set<String> keys = stringRedisTemplate.keys(key2);
     Map<String, Integer> total = new HashMap<>();
@@ -101,11 +127,18 @@ public class FlowController {
       test = test+i;
     }
     System.out.println("test = " + test);
-
     GenFiveMins genFiveMins = new GenFiveMins();
     Map<String, String> timeMap = genFiveMins.genFiveMins();
-
-    for
-    return ResponseEntity.ok(total);
+    List<TimeFlow> timeFlowList = new ArrayList<>();
+    for (String key : timeMap.keySet()){
+      if (total.containsKey(key)) {
+        TimeFlow timeFlow = new TimeFlow();
+        timeFlow.setTime(timeMap.get(key));
+        timeFlow.setFlowIn(total.get((Object)key));
+        timeFlow.setFlowOut(total.get((Object)key));
+        timeFlowList.add(timeFlow);
+      }
+    }
+    return ResponseEntity.ok(timeFlowList);
   }
 }

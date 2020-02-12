@@ -7,10 +7,10 @@ spring:
 #      host: 10.10.49.116
 #      port: 27019
 #      database: tupp-mgmt-dev
-#  datasource:
-#    username: root
-#    password: root
-#    url: jdbc:mysql://localhost:3306/ez_ncc?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://10.10.49.156:3306/ez_ncc?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
 
   redis:
 #    host: 10.10.49.152

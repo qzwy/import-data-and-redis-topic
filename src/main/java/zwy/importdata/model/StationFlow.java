@@ -4,6 +4,10 @@ public class StationFlow {
 
   String stationId;
 
+  String stationName;
+
+  String color;
+
   Integer inboundValue;
 
   Integer outBoundValue;
@@ -32,4 +36,19 @@ public class StationFlow {
     this.outBoundValue = outBoundValue;
   }
 
+  public String getStationName() {
+    return stationName;
+  }
+
+  public void setStationName(String stationName) {
+    this.stationName = stationName;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
 }
