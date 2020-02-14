@@ -110,4 +110,19 @@ public class redisTest {
     System.out.println("test = " + test);
   }
 
+
+  //晚到列车数两分钟
+  @Test
+  public void delay2min(){
+    //todo today is No.?
+    String originOkey = "tf:cmn:02:trn:*_num";
+    Set<String> keys = stringRedisTemplate.keys(originOkey);
+    assert keys != null;
+    for (String key : keys){
+      String s = stringRedisTemplate.opsForValue().get(key);
+      System.out.printf("key = %s value = %s\n",key.split("\\.")[2],s);
+    }
+
+  }
+
 }
