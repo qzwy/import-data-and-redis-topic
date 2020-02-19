@@ -124,5 +124,16 @@ public class redisTest {
     }
 
   }
+  @Test
+  public void lineEnergy() {
+    String OriginalKJey = "tf:cmn:14:iscs:*.0000.energy_line_type_day";
+    Set<String> keys = stringRedisTemplate.keys(OriginalKJey);
+    assert keys != null;
+    for (String key : keys) {
+      Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(key);
+      System.out.println("values = " + entries);
+    }
+//        return ResponseEntity.ok();
+  }
 
 }
