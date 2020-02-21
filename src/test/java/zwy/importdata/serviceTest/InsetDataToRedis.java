@@ -19,7 +19,7 @@ public class InsetDataToRedis {
     @Test
     public void insertIntoRedis() {
         //key
-        String key = "tf:cmn:14:iscs:02.0226.line_fault_nums";
+        String key = "tf:cmn:14:iscs:03.0000.line_fault_nums";
         //value
         double value = Math.random()*10000;
 
@@ -39,7 +39,16 @@ public class InsetDataToRedis {
         stringRedisTemplate.opsForValue().set(key, String.format("%.2f", value));
     }
 
-
+    //线路专业设备
+    @Test
+    public void eqline() {
+        //key
+        String key = "tf:cmn:14:iscs:03.0000.sys_fault_nums";
+        //value
+        double value = Math.random()*10000;
+        //save
+        stringRedisTemplate.opsForHash().put(key,"fan",String.valueOf((int)value));
+    }
     @Test
     public void insertIntoRedis3() {
         //key
@@ -64,6 +73,4 @@ public class InsetDataToRedis {
         String s = stringRedisTemplate.opsForValue().get(key);
         System.out.println("s = " + s);
     }
-
-
 }
