@@ -1,10 +1,9 @@
 package zwy.importdata.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
 @Service
 public interface EquipmentService {

@@ -64,6 +64,7 @@ public class InsetDataToRedis {
         Map<Object, Object> hashValue = stringRedisTemplate.opsForHash().entries(key);
         System.out.println("value = " + hashValue);
     }
+
     @Test
     public void findData() {
         //key
